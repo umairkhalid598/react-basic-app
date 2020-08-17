@@ -15,14 +15,14 @@ const Button = ({ name, value, variation, handleSubmit }) => {
 };
 
 Button.defaultProps = {
-  variation: "primary"
+  variation: "primary",
 };
 
 Button.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   variation: PropTypes.string,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default Button;

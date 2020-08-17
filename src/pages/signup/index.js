@@ -1,5 +1,5 @@
 // 3rd party
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -8,9 +8,18 @@ import "./style.css";
 import TextField from "../../components/TextField";
 import Button from "../../components/button";
 import { userSignUpRequest } from "../../actions/user";
+import history from "../../helpers/history";
+import { Home } from "../../routes/constants";
 
 const SignUp = (props) => {
-  const { handleSignUp } = props;
+  const { handleSignUp, user } = props;
+
+  useEffect(() => {
+    if (user.token) {
+      history.push(Home);
+    }
+  });
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -63,13 +72,15 @@ const SignUp = (props) => {
         variation="outline-primary"
         name="sign_up_button"
         value="Sign Up"
-        handleSubmit={handleSignUp({
-          firstName,
-          lastName,
-          username,
-          email,
-          password,
-        })}
+        handleSubmit={() =>
+          handleSignUp({
+            firstName,
+            lastName,
+            username,
+            email,
+            password,
+          })
+        }
       />
     </div>
   );
@@ -77,11 +88,14 @@ const SignUp = (props) => {
 
 SignUp.propTypes = {
   handleSignUp: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    token: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.currentUser,
   };
 };
 

@@ -1,5 +1,5 @@
 // 3rd party
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -8,9 +8,18 @@ import "./style.css";
 import TextField from "../../components/TextField";
 import Button from "../../components/button";
 import { userLoginRequest } from "../../actions/user";
+import { Home } from "../../routes/constants";
+import history from "../../helpers/history";
 
 const Login = (props) => {
-  const { handleLogin } = props;
+  const { handleLogin, user } = props;
+
+  useEffect(() => {
+    if (user.token) {
+      history.push(Home);
+    }
+  });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,11 +53,14 @@ const Login = (props) => {
 
 Login.propTypes = {
   handleLogin: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    token: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.currentUser,
   };
 };
 

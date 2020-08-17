@@ -10,6 +10,7 @@ import LoginComponent from "../pages/login";
 import SignUpComponent from "../pages/signup";
 import { Home, Login, SignUp } from "./constants";
 import history from "../helpers/history";
+import AuthRoutes from "./authRoutes";
 
 const Routes = (props) => {
   const { children } = props;
@@ -18,7 +19,7 @@ const Routes = (props) => {
       <Router history={history}>
         {children}
         <Switch>
-          <Route path={Home} exact component={HomeComponent} />
+          <AuthRoutes path={Home} exact component={HomeComponent} />
           <Route path={Login} component={LoginComponent} />
           <Route path={SignUp} component={SignUpComponent} />
         </Switch>
