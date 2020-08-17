@@ -30,13 +30,7 @@ const UserReducer = (state = initialState, action) => {
     case USER_LOGIN_FETCH_SUCCEEDED:
       return {
         ...state,
-        isLoading: action.payload.isLoading,
-        id: action.payload.user.id,
-        username: action.payload.user.username,
-        firstName: action.payload.user.first_name,
-        lastName: action.payload.user.last_name,
-        email: action.payload.user.email,
-        token: action.payload.token,
+        ...action.payload,
       };
     case USER_LOGIN_FETCH_FAILED:
       return {

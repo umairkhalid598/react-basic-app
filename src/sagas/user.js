@@ -14,11 +14,23 @@ import {
   userSignUpFailed,
   userSignUpSuccess,
 } from "../actions/user";
+import { Home } from "../routes/constants";
+import history from "../helpers/history";
 
 function* fetchUser({ payload }) {
   try {
-    const user = yield call(loginRequest, payload.email, payload.password);
-    yield put(userLoginSuccess(user));
+    const { body } = yield call(loginRequest, payload.email, payload.password);
+    yield put(
+      userLoginSuccess({
+        id: body.user.id,
+        username: body.user.username,
+        firstName: body.user.first_name,
+        lastName: body.user.last_name,
+        email: body.user.email,
+        token: body.token,
+      })
+    );
+    history.push(Home);
   } catch (e) {
     yield put(userLoginFailed(e.response.body.errors));
   }

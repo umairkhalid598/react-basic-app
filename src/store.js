@@ -2,6 +2,7 @@
 import createSagaMiddleware from "redux-saga";
 import { createStore, applyMiddleware, compose } from "redux";
 import { logger } from "redux-logger";
+import history from "./helpers/history";
 
 // lib
 import reducer from "./reducers";
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV !== "production" && typeof window === "object") {
 }
 
 const store = createStore(
-  reducer,
+  reducer(history),
   composeEnhancers(applyMiddleware(...middleWares))
 );
 sagaMiddleware.run(rootSaga);

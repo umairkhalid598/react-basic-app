@@ -63,14 +63,13 @@ const SignUp = (props) => {
         variation="outline-primary"
         name="sign_up_button"
         value="Sign Up"
-        handleSubmit={() =>
-          handleSignUp({
-            firstName,
-            lastName,
-            username,
-            email,
-            password,
-          })}
+        handleSubmit={handleSignUp({
+          firstName,
+          lastName,
+          username,
+          email,
+          password,
+        })}
       />
     </div>
   );

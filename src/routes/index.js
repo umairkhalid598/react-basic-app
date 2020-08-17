@@ -1,25 +1,29 @@
 // 3rd party
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
+import { ConnectedRouter } from "connected-react-router";
 
 // lib
 import HomeComponent from "../pages/home";
 import LoginComponent from "../pages/login";
 import SignUpComponent from "../pages/signup";
 import { Home, Login, SignUp } from "./constants";
+import history from "../helpers/history";
 
 const Routes = (props) => {
   const { children } = props;
   return (
-    <Router>
-      {children}
-      <Switch>
-        <Route path={Home} exact component={HomeComponent} />
-        <Route path={Login} component={LoginComponent} />
-        <Route path={SignUp} component={SignUpComponent} />
-      </Switch>
-    </Router>
+    <ConnectedRouter history={history}>
+      <Router history={history}>
+        {children}
+        <Switch>
+          <Route path={Home} exact component={HomeComponent} />
+          <Route path={Login} component={LoginComponent} />
+          <Route path={SignUp} component={SignUpComponent} />
+        </Switch>
+      </Router>
+    </ConnectedRouter>
   );
 };
 
