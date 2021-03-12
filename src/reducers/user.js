@@ -1,5 +1,11 @@
 // lib
 import {
+  USER_DELETE_FAILED,
+  USER_DELETE_REQUESTED,
+  USER_DELETE_SUCCEEDED,
+  USER_INVITE_FAILED,
+  USER_INVITE_REQUESTED,
+  USER_INVITE_SUCCEEDED,
   USER_LOGIN_FETCH_FAILED,
   USER_LOGIN_FETCH_REQUESTED,
   USER_LOGIN_FETCH_SUCCEEDED,
@@ -54,6 +60,36 @@ const UserReducer = (state = initialState, action) => {
         token: action.payload.token,
       };
     case USER_SIGN_UP_FETCH_FAILED:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case USER_INVITE_REQUESTED:
+      return {
+        ...state,
+        isLoading: action.payload.isLoading,
+      };
+    case USER_INVITE_SUCCEEDED:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case USER_INVITE_FAILED:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case USER_DELETE_REQUESTED:
+      return {
+        ...state,
+        isLoading: action.payload.isLoading,
+      };
+    case USER_DELETE_SUCCEEDED:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case USER_DELETE_FAILED:
       return {
         ...state,
         ...action.payload,

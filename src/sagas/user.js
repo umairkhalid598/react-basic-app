@@ -3,12 +3,19 @@ import { call, put, takeLatest } from "redux-saga/effects";
 
 // lib
 import {
+  USER_INVITE_REQUESTED,
   USER_LOGIN_FETCH_REQUESTED,
   USER_SIGN_UP_FETCH_REQUESTED,
 } from "../actions/constants/user";
 import {
+  deleteUserRequest,
+  inviteRequest,
   loginRequest,
   signUpRequest,
+  userDeleteFailed,
+  userDeleteSuccess,
+  userInviteFailed,
+  userInviteSuccess,
   userLoginFailed,
   userLoginSuccess,
   userSignUpFailed,
@@ -45,9 +52,30 @@ function* createUser({ payload }) {
   }
 }
 
+function* inviteuser({ payload }) {
+  try {
+    const user = yield call(inviteRequest, payload.email, payload.id);
+    yield put(userInviteSuccess(user));
+  } catch (e) {
+    yield put(userInviteFailed(e.response.body.errors));
+  }
+}
+
+function* deleteUser({ payload }) {
+  try {
+    const user = yield call(deleteUserRequest, payload.email, payload.id);
+    yield put(userDeleteSuccess(user));
+  } catch (e) {
+    yield put(userDeleteFailed(e.response.body.errors));
+  }
+}
+
+
 function* userSaga() {
   yield takeLatest(USER_LOGIN_FETCH_REQUESTED, fetchUser);
   yield takeLatest(USER_SIGN_UP_FETCH_REQUESTED, createUser);
+  yield takeLatest(USER_INVITE_REQUESTED, inviteuser);
+  yield takeLatest(USER_INVITE_REQUESTED, deleteUser);
 }
 
 export default userSaga;
