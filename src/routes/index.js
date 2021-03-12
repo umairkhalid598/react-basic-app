@@ -20,7 +20,7 @@ const Routes = (props) => {
         {children}
         <Switch>
           <AuthRoutes path={Home} exact component={HomeComponent} />
-          <Route path={Login} component={LoginComponent} />
+          <Route path={Login} component={HomeComponent} />
           <Route path={SignUp} component={SignUpComponent} />
         </Switch>
       </Router>
